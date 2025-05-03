@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { createUser, fetchAllusers, changeUserData, deleteUserById} from "./service";
 import {userSchema} from "./Validation";
-import { RequestHandler } from 'express';
 
 
 export const InsertNewUser = async (req : Request, res : Response): Promise<void> => {

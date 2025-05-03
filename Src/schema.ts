@@ -33,10 +33,8 @@ const Users = new Schema({
         enum: ['Admin', 'User'],
         default: 'User'
     },
-    timestamp: {
-        type: Date,
-        default: Date.now
-    },
+},{
+    timestamps: true
 });  
    
 export const UserModel = model("UserModel", Users, "User_details"); 
