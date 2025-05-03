@@ -11,3 +11,5 @@ route.delete("/delete/:Id", deleteUser);
 
 
 export default route;
+
+// Promise<Response | void>

@@ -1,21 +1,27 @@
 import { Request, Response } from "express";
 import { createUser, fetchAllusers, changeUserData, deleteUserById} from "./service";
+import {userSchema} from "./Validation";
+import { RequestHandler } from 'express';
 
-export const InsertNewUser = async (req: Request, res: Response) => {
-  try {
-    const user = await createUser(req.body);
-    if (user) {
-      res.status(201).json({ message: "User created successfully", user });
-    } else {
-      res.status(400).json({ message: "User creation failed" });
+
+export const InsertNewUser = async (req : Request, res : Response): Promise<void> => {
+    const { error } = userSchema.validate(req.body);
+  
+    if (error) {
+        res.status(400).json({ message: error.details[0].message });
     }
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error in inserting a new user users", error });
-  }
-};
-
+  
+    try {
+      const user = await createUser(req.body);
+      if (user) {
+        res.status(201).json({ message: "User created successfully", user });
+      } else {
+        res.status(400).json({ message: "User creation failed" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error inserting user", error });
+    }
+  };
 export const GetAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await fetchAllusers();
