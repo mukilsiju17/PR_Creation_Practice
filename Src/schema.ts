@@ -17,10 +17,6 @@ const Users = new Schema({
         unique: true,
         index: true
     },
-    Password : {
-        type: String, 
-        required: true
-    },
     Phone : {   
         type: String, 
         required: true, 
@@ -32,6 +28,10 @@ const Users = new Schema({
         required: true,
         enum: ['Admin', 'User'],
         default: 'User'
+    },
+    Password : {
+        type: String, 
+        required: true
     },
 },{
     timestamps: true

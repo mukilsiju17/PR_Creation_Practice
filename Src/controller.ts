@@ -21,6 +21,7 @@ export const InsertNewUser = async (req : Request, res : Response): Promise<void
       res.status(500).json({ message: "Error inserting user", error });
     }
   };
+
 export const GetAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await fetchAllusers();
@@ -62,3 +63,23 @@ export const deleteUser = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Error in updating user", error: (error as Error).message });
     }
 }
+
+export const signup = async (req: Request, res: Response) : Promise<void> => {
+
+  const { error } = userSchema.validate(req.body);
+
+  if (error) {
+    res.status(400).json({ message: error.details[0].message });
+  }
+
+  try{
+        const userDetails = await createUser(req.body);
+        if (userDetails) {
+            res.status(201).json({ message: "User created successfully", userDetails });
+        } else {
+            res.status(400).json({ message: "User creation failed" });
+        }   
+  }catch (error) {
+        res.status(500).json({ message: "Error inserting user", error });
+  }
+} 
