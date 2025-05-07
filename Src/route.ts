@@ -1,4 +1,4 @@
-import e, { Router } from "express";
+import { Router } from "express";
 import { InsertNewUser, GetAllUsers, updateUser, deleteUser, signup, Login} from "./controller";
 
 const route = Router();
